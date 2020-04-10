@@ -1,0 +1,21 @@
+{
+  "name": "diazoxide/php-helpers",
+  "description": "PHP Helpers functions",
+  "minimum-stability": "stable",
+  "license": "GPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "aaron",
+      "email": "aaron.yor@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "7.2",
+    "ext-json": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "diazoxide\\helpers": "src/"
+    }
+  }
+}
