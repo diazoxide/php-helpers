@@ -37,7 +37,7 @@ class Variables
      * @param $b
      * @return bool
      */
-    private static function compare(?string $type, $a, $b): bool
+    public static function compare(?string $type, $a, $b): bool
     {
         if ($type === null || $type === self::COMPARE_EQUAL) {
             return $a == $b;
