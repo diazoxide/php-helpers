@@ -3,7 +3,9 @@
 
 namespace diazoxide\helpers;
 
-
+/**
+ * Class Variables
+ * */
 class Variables
 {
 
