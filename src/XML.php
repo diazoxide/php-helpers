@@ -15,7 +15,7 @@ class XML
      *
      * @return string
      */
-    private static function getAttrsString(array $data, ?string $parent = null): string
+    public static function getAttrsString(array $data, ?string $parent = null): string
     {
         return implode(
             ' ',
@@ -59,7 +59,7 @@ class XML
      *
      * @return string
      */
-    private static function tagOpen(string $tag, ?array $attrs = null): string
+    public static function tagOpen(string $tag, ?array $attrs = null): string
     {
         if ($attrs !== null) {
             $attrs_str = self::getAttrsString($attrs);
@@ -79,7 +79,7 @@ class XML
      *
      * @return string
      */
-    private static function tagClose(string $tag): string
+    public static function tagClose(string $tag): string
     {
         return sprintf('</%s>', $tag);
     }
@@ -93,12 +93,25 @@ class XML
      *
      * @return string
      */
-    private static function tag(string $tag, ?string $content = '', ?array $attrs = []): string
+    public static function tag(string $tag, ?string $content = '', ?array $attrs = []): string
     {
         $html = self::tagOpen($tag, $attrs);
         $html .= $content;
         $html .= self::tagClose($tag);
 
         return $html;
+    }
+
+    /**
+     * @param $attr
+     * @param $class
+     */
+    public static function addClass(&$attr, $class): void
+    {
+        $class = is_array($class) ? implode(' ', $class) : $class;
+        if (!empty($attr)) {
+            $attr .= ' ';
+        }
+        $attr .= $class;
     }
 }
