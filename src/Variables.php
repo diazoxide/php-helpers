@@ -28,8 +28,8 @@ class Variables
     public const COMPARE_LESS_THAN_OR_EQUAL = 'less_than_or_equal';
     public const COMPARE_CONTAINS = 'contains';
     public const COMPARE_REGEXP = 'regexp';
-    public const COMPARE_STARTS_WITH = 'starts_in';
-    public const COMPARE_ENDS_WITH = 'ends_in';
+    public const COMPARE_STARTS_WITH = 'starts_with';
+    public const COMPARE_ENDS_WITH = 'ends_with';
 
     /**
      * @param string|null $type
