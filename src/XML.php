@@ -23,6 +23,13 @@ class XML
             ' ',
             array_map(
                 static function ($k, $v) use ($parent) {
+
+                    if($v === true){
+                        $v = 'true';
+                    } elseif ( $v === false){
+                        $v = 'false';
+                    }
+
                     if (is_string($v)) {
                         $v = htmlspecialchars($v);
                         if ($parent === null && is_int($k)) {
