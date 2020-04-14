@@ -4,6 +4,8 @@
 namespace diazoxide\helpers;
 
 
+use InvalidArgumentException;
+
 class XML
 {
 
@@ -96,10 +98,17 @@ class XML
     public static function tag(string $tag, $content = '', ?array $attrs = []): string
     {
         $html = self::tagOpen($tag, $attrs);
+        $content_html = '';
         if (is_array($content)) {
-            $content = self::tag($content);
+            foreach ($content as $_content){
+                $content_html.= self::tag(...$_content);
+            }
+        } elseif(is_string($content)){
+            $content_html = $content;
+        } else{
+            throw new InvalidArgumentException('Invalid $content argument (string or array only).');
         }
-        $html .= $content;
+        $html .= $content_html;
         $html .= self::tagClose($tag);
 
         return $html;
