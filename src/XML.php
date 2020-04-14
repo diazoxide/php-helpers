@@ -88,14 +88,17 @@ class XML
      * Print HTML Tag
      *
      * @param string $tag
-     * @param string|null $content
+     * @param string|array $content
      * @param array|null $attrs
      *
      * @return string
      */
-    public static function tag(string $tag, ?string $content = '', ?array $attrs = []): string
+    public static function tag(string $tag, $content = '', ?array $attrs = []): string
     {
         $html = self::tagOpen($tag, $attrs);
+        if (is_array($content)) {
+            $content = self::tag($content);
+        }
         $html .= $content;
         $html .= self::tagClose($tag);
 
