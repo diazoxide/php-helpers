@@ -23,6 +23,7 @@ class Variables
      *
      * */
     public const COMPARE_EQUAL = 'equal';
+    public const COMPARE_IDENTICAL = 'identical';
     public const COMPARE_NOT_EQUAL = 'not_equal';
     public const COMPARE_GREATER_THAN = 'greater_than';
     public const COMPARE_GREATER_THAN_OR_EQUAL = 'greater_than_or_equal';
@@ -43,6 +44,10 @@ class Variables
     {
         if ($type === null || $type === self::COMPARE_EQUAL) {
             return $a == $b;
+        }
+
+        if ($type === null || $type === self::COMPARE_IDENTICAL) {
+            return $a === $b;
         }
 
         if ($type === self::COMPARE_NOT_EQUAL) {
