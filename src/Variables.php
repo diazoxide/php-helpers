@@ -25,7 +25,7 @@ class Variables
     public const COMPARE_EQUAL = 'equal';
     public const COMPARE_NOT_EQUAL = 'not_equal';
     public const COMPARE_IDENTICAL = 'identical';
-    public const COMPARE_NOT_IDENTICAL = 'identical';
+    public const COMPARE_NOT_IDENTICAL = 'not_identical';
     public const COMPARE_GREATER_THAN = 'greater_than';
     public const COMPARE_GREATER_THAN_OR_EQUAL = 'greater_than_or_equal';
     public const COMPARE_LESS_THAN = 'less_than';
