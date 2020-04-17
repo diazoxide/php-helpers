@@ -35,12 +35,12 @@ class URL
      *
      * @return string
      */
-    public static function addQueryVars($url, $name, $value)
+    public static function addQueryVars($url, $name, $value): string
     {
 
         $url_data = parse_url($url);
-        if (!isset($url_data["query"])) {
-            $url_data["query"] = "";
+        if (!isset($url_data['query'])) {
+            $url_data['query'] = '';
         }
 
         $params = array();
@@ -59,12 +59,12 @@ class URL
      *
      * @return string
      */
-    public static function removeQueryVars($url, $paramName)
+    public static function removeQueryVars($url, $paramName): string
     {
 
         $url_data = parse_url($url);
-        if (!isset($url_data["query"])) {
-            $url_data["query"] = "";
+        if (!isset($url_data['query'])) {
+            $url_data['query'] = '';
         }
 
         $params = array();
@@ -87,7 +87,7 @@ class URL
      *
      * @return string
      */
-    public static function buildUrl($parts)
+    public static function buildUrl($parts): string
     {
 
         $scheme = isset($parts['scheme']) ? ($parts['scheme'] . '://') : '';
@@ -118,5 +118,16 @@ class URL
                 $fragment
             ]
         );
+    }
+
+    /**
+     * @return string
+     */
+    public static function getCurrent(): string
+    {
+        $scheme = Environment::server('HTTPS') === 'on' ? 'https://' : 'http://';
+        $host = Environment::server('HTTP_HOST');
+        $uri = Environment::server('REQUEST_URI');
+        return $scheme.$host.$uri;
     }
 }
