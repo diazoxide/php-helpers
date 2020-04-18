@@ -9,6 +9,26 @@ use InvalidArgumentException;
 class XML
 {
 
+    public static function encode(?string $content, $doubleEncode = true): string
+    {
+        return htmlspecialchars(
+            $content,
+            ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5,
+            ini_get('default_charset'),
+            $doubleEncode
+        );
+    }
+
+    /**
+     * @param string $content the content to be decoded
+     *
+     * @return string the decoded content
+     */
+    public static function decode(string $content): string
+    {
+        return htmlspecialchars_decode($content, ENT_QUOTES);
+    }
+
     /**
      * Array to html attributes string
      *
@@ -31,7 +51,7 @@ class XML
                     }
 
                     if (is_string($v)) {
-                        $v = htmlspecialchars($v);
+                        $v = static::encode($v);
                         if ($parent === null && is_int($k)) {
                             return $v;
                         }
