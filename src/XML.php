@@ -126,6 +126,9 @@ class XML
     {
         $html = self::tagOpen($tag, $attrs);
         $content_html = '';
+
+        $content = $content ?? '';
+
         if (is_array($content)) {
             foreach ($content as $_content){
                 $content_html.= self::tag(...$_content);
