@@ -46,16 +46,39 @@ class Arrays
      * @param string $by
      * @param string|null $return
      * @param callable $callback
+     *
      * @return mixed|null
+     * @noinspection PhpDocSignatureInspection
      */
-    public static function ufind(array $data, string $key, string $by, ?string $return, callable $callback)
+    public static function ufind()
     {
-        foreach ($data as $item) {
+        $args = func_get_args();
+
+        $data = $args[0] ?? [];
+        $key = $args[1] ?? null;
+        $by = $args[2] ?? null;
+
+        if(array_key_exists(3,$args)){
+
+            if(is_callable($args[3])){
+                $callback = $args[3];
+            } else{
+                $return = $args[3] ?? null;
+            }
+        }
+
+        $callback = $callback ?? $args[4] ?? static function($a,$b){return $a===$b;};
+
+        foreach ($data as $index => $item) {
             if (
                 isset($item[$by])
                 && $callback($key, $item[$by])
             ) {
-                if ($return !== null) {
+                if(!array_key_exists('return',get_defined_vars())){
+                    return $index;
+                }
+
+                if (isset($return) && $return !== null) {
                     return $item[$return] ?? null;
                 }
 
