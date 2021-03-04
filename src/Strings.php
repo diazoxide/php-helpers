@@ -1,18 +1,16 @@
 <?php
 
-
 namespace diazoxide\helpers;
-
 
 class Strings
 {
     /**
      * Get string difference
      *
-     * @param string      $before Initial type of string
-     * @param string      $after  Final type of string
-     * @param string|null $prefix Referenced variable to receive difference prefix
-     * @param string|null $suffix Referenced variable to receive difference suffix
+     * @param  string  $before  Initial type of string
+     * @param  string  $after  Final type of string
+     * @param  string|null  $prefix  Referenced variable to receive difference prefix
+     * @param  string|null  $suffix  Referenced variable to receive difference suffix
      *
      * @return void
      */
@@ -26,7 +24,7 @@ class Strings
         $suffix = '';
 
         if ($after != '') {
-            $pos = strrpos($before, $after);
+            $pos    = strrpos($before, $after);
             $prefix = substr($before, 0, $pos);
             $suffix = substr(
                 $before,
@@ -35,6 +33,15 @@ class Strings
                 strlen($before)
             );
         }
+    }
 
+    /**
+     * @param  string  $str
+     *
+     * @return string
+     */
+    public static function toLabel(string $str): string
+    {
+        return str_replace('_', ' ', ucfirst($str));
     }
 }
