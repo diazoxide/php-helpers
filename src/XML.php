@@ -20,7 +20,7 @@ class XML
     }
 
     /**
-     * @param string $content the content to be decoded
+     * @param  string  $content  the content to be decoded
      *
      * @return string the decoded content
      */
@@ -33,7 +33,7 @@ class XML
      * Array to html attributes string
      *
      * @param $data
-     * @param string|null $parent
+     * @param  string|null  $parent
      *
      * @return string
      */
@@ -43,10 +43,9 @@ class XML
             ' ',
             array_map(
                 static function ($k, $v) use ($parent) {
-
-                    if($v === true){
+                    if ($v === true) {
                         $v = 'true';
-                    } elseif ( $v === false){
+                    } elseif ($v === false) {
                         $v = 'false';
                     }
 
@@ -83,59 +82,67 @@ class XML
     /**
      * Open HTML Tag
      *
-     * @param string $tag
-     * @param array|null $attrs
+     * @param  string  $tag
+     * @param  array|null  $attrs
+     *
+     * @param  string  $chars
      *
      * @return string
      */
-    public static function tagOpen(string $tag, ?array $attrs = null): string
+    public static function tagOpen(string $tag, ?array $attrs = null, string $chars = '<>'): string
     {
         if ($attrs !== null) {
             $attrs_str = self::getAttrsString($attrs);
         }
 
         return sprintf(
-            '<%s%s>',
+            '%s%s%s%s',
+            $chars[0] ?? '<',
             $tag,
-            !empty($attrs_str) ? ' ' . $attrs_str : ''
+            ! empty($attrs_str) ? ' ' . $attrs_str : '',
+            $chars[1] ?? '>'
         );
     }
 
     /**
      * Close HTML tag
      *
-     * @param string $tag
+     * @param  string  $tag
+     *
+     * @param  string  $chars
      *
      * @return string
      */
-    public static function tagClose(string $tag): string
+    public static function tagClose(string $tag, string $chars = '<>'): string
     {
-        return sprintf('</%s>', $tag);
+        return sprintf('%s/%s%s', $chars[0] ?? '<', $tag, $chars[1] ?? '>');
     }
 
     /**
      * Print HTML Tag
      *
-     * @param string $tag
-     * @param string|array $content
-     * @param array|null $attrs
+     * @param  string  $tag
+     * @param  string|array  $content
+     * @param  array|null  $attrs
+     *
+     * @param  string  $chars
      *
      * @return string
      */
-    public static function tag(string $tag, $content = '', ?array $attrs = []): string
+    public static function tag(string $tag, $content = '', ?array $attrs = [], string $chars = '<>'): string
     {
-        $html = self::tagOpen($tag, $attrs);
+        $html         = self::tagOpen($tag, $attrs);
         $content_html = '';
 
         $content = $content ?? '';
 
         if (is_array($content)) {
-            foreach ($content as $_content){
-                $content_html.= self::tag(...$_content);
+            foreach ($content as $_content) {
+                $content_html .= self::tag(...$_content);
             }
-        } elseif(is_string($content)){
+        } elseif (is_string($content)) {
             $content_html = $content;
-        } else{
+        } else {
             throw new InvalidArgumentException('Invalid $content argument (string or array only).');
         }
         $html .= $content_html;
@@ -151,7 +158,7 @@ class XML
     public static function addClass(&$attr, $class): void
     {
         $class = is_array($class) ? implode(' ', $class) : $class;
-        if (!empty($attr)) {
+        if ( ! empty($attr)) {
             $attr .= ' ';
         }
         $attr .= $class;
