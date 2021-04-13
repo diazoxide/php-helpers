@@ -131,7 +131,7 @@ class XML
      */
     public static function tag(string $tag, $content = '', ?array $attrs = [], string $chars = '<>'): string
     {
-        $html         = self::tagOpen($tag, $attrs);
+        $html         = self::tagOpen($tag, $attrs, $chars);
         $content_html = '';
 
         $content = $content ?? '';
@@ -146,7 +146,7 @@ class XML
             throw new InvalidArgumentException('Invalid $content argument (string or array only).');
         }
         $html .= $content_html;
-        $html .= self::tagClose($tag);
+        $html .= self::tagClose($tag, $chars);
 
         return $html;
     }
