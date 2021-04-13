@@ -138,6 +138,7 @@ class XML
 
         if (is_array($content)) {
             foreach ($content as $_content) {
+                $_content[3]  = $_content[3] ?? $chars;
                 $content_html .= self::tag(...$_content);
             }
         } elseif (is_string($content)) {
